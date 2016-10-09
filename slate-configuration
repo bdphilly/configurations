@@ -1,0 +1,79 @@
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+ 
+# Abstract positions
+alias full move screenOriginX;screenOriginY screenSizeX;screenSizeY
+alias lefthalf move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
+alias righthalf move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+alias leftthird move screenOriginX;screenOriginY screenSizeX/3;screenSizeY
+alias lefttwothirds move screenOriginX;screenOriginY screenSizeX/3*2;screenSizeY
+alias rightthird move screenOriginX+screenSizeX/3*2;screenOriginY screenSizeX/3;screenSizeY
+alias righttwothirds move screenOriginX+screenSizeX/3;screenOriginY screenSizeX/3*2;screenSizeY
+ 
+ 
+alias tophalf move screenOriginX;screenOriginY screenSizeX;screenSizeY/2
+alias bottomhalf move screenOriginX;screenOriginY+screenSizeY/2 screenSizeX;screenSizeY/2
+alias topleft corner top-left resize:screenSizeX/2;screenSizeY/2
+alias topright corner top-right resize:screenSizeX/2;screenSizeY/2
+alias bottomleft corner bottom-left resize:screenSizeX/2;screenSizeY/2
+alias bottomright corner bottom-right resize:screenSizeX/2;screenSizeY/2
+alias center move screenOriginX+screenSizeX/6;screenOriginY+screenSizeY/6 2*screenSizeX/3;2*screenSizeY/3
+alias bigCenter move screenOriginX+screenSizeX/12;screenOriginY+screenSizeY/12 10*screenSizeX/12;10*screenSizeY/12
+ 
+# Bind command+option+b to google chrome
+bind b:cmd;alt focus 'Google Chrome'
+bind a:cmd;alt toggle 'iTerm2'
+ 
+# The triple keys
+alias triple ctrl;alt;cmd
+alias triple2 alt;ctrl;shift
+ 
+# Location bindings
+bind left:${triple} ${lefthalf}
+bind space:${triple} ${full}
+bind right:${triple} ${righthalf}
+bind up:${triple} ${tophalf}
+bind down:${triple} ${bottomhalf}
+bind c:${triple} ${center}
+bind v:${triple} ${bigCenter}
+bind down:${triple2} ${bottomleft}
+bind right:${triple2} ${bottomright}
+bind left:${triple2} ${topleft}
+bind up:${triple2} ${topright}
+ 
+bind f17 ${leftthird}
+bind f18 ${rightthird}
+bind f16 ${lefttwothirds}
+bind f19 ${righttwothirds}
+ 
+# Monitor switching bindings
+bind right:alt,ctrl throw 1 resize
+bind left:alt,ctrl throw 0 resize
+ 
+# Monitor Aliases
+alias mon-laptop      1
+ 
+alias 1-full        move screenOriginX;screenOriginY screenSizeX;screenSizeY         ${mon-laptop}
+alias 1-left        move screenOriginX;screenOriginY screenSizeX/2;screenSizeY         ${mon-laptop}
+alias 1-right       move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY         ${mon-laptop}
+ 
+# 2 Monitor layout
+layout 1monitor 'iTerm2':MAIN_FIRST ${1-left}
+layout 1monitor 'Atom':MAIN_FIRST ${1-right}
+ 
+default 1monitor  resolutions:${mon-laptop}
+ 
+bind z:cmd;alt layout 1monitor
+ 
+bind pad4:shift ${lefthalf} 0
+bind pad6:shift ${righthalf} 0
+bind pad8:shift ${tophalf} 0
+bind pad2:shift ${bottomhalf} 0
+bind pad5:shift ${full} 0
+ 
+bind pad4:shift,ctrl ${lefthalf} 1
+bind pad6:shift,ctrl ${righthalf} 1
+bind pad8:shift,ctrl ${tophalf} 1
+bind pad2:shift,ctrl ${bottomhalf} 1
+bind pad5:shift,ctrl ${full} 1
